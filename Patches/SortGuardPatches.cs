@@ -62,6 +62,7 @@ namespace AutoSortFix.Patches
             {
                 var gridView = entry.Item1;
                 var wanted = entry.Item2;
+                bool forceRebuild = false;
                 try
                 {
                     foreach (var view in gridView.GridItemViews.ToList())
@@ -78,8 +79,18 @@ namespace AutoSortFix.Patches
                                 view.IsBeingAdded.Value = false;
                                 view.IsBeingRemoved.Value = false;
                                 view.IsBeingDrained.Value = false;
-                                gridView.SetItemViewPosition(view, loc);
-                                kept++;
+                                try
+                                {
+                                    gridView.SetItemViewPosition(view, loc);
+                                    view.ItemRotation = loc.r;
+                                    kept++;
+                                }
+                                catch
+                                {
+                                    // Killed views stay in the dict, so force a rebuild to replace them.
+                                    view.Kill();
+                                    forceRebuild = true;
+                                }
                             }
                         }
                         catch (Exception e)
@@ -88,13 +99,16 @@ namespace AutoSortFix.Patches
                         }
                     }
 
-                    bool missing = false;
-                    foreach (var item in wanted.Keys)
+                    bool missing = forceRebuild;
+                    if (!missing)
                     {
-                        if (gridView.FindItemView(item) == null)
+                        foreach (var item in wanted.Keys)
                         {
-                            missing = true;
-                            break;
+                            if (gridView.FindItemView(item) == null)
+                            {
+                                missing = true;
+                                break;
+                            }
                         }
                     }
                     if (missing)
