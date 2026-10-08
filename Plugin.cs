@@ -3,7 +3,7 @@ using AutoSortFix.Patches;
 
 namespace AutoSortFix
 {
-    [BepInPlugin("com.tasowy.AutoSortFix", "AutoSortFix", "0.1.0-alpha")]
+    [BepInPlugin("com.tasowy.AutoSortFix", "AutoSortFix", "0.1.0")]
     public class Plugin : BaseUnityPlugin
     {
         private void Awake()
