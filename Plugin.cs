@@ -1,9 +1,9 @@
 using BepInEx;
-using SPT_sortfix.Patches;
+using AutoSortFix.Patches;
 
-namespace SPT_sortfix
+namespace AutoSortFix
 {
-    [BepInPlugin("com.tasowy.SPT_sortfix", "SPT_sortfix", "1.0.1")]
+    [BepInPlugin("com.tasowy.AutoSortFix", "AutoSortFix", "0.1.0-alpha")]
     public class Plugin : BaseUnityPlugin
     {
         private void Awake()
@@ -14,7 +14,7 @@ namespace SPT_sortfix
             new SortDonePatch().Enable();
             new SuppressAddPatch().Enable();
             new SuppressRemovePatch().Enable();
-            Logger.LogInfo("SPT_sortfix loaded!");
+            Logger.LogInfo("AutoSortFix loaded!");
         }
     }
 }

@@ -1,6 +1,6 @@
 using BepInEx.Configuration;
 
-namespace SPT_sortfix
+namespace AutoSortFix
 {
     internal static class Settings
     {

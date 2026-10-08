@@ -9,7 +9,7 @@ using HarmonyLib;
 using SPT.Reflection.Patching;
 using UnityEngine;
 
-namespace SPT_sortfix.Patches
+namespace AutoSortFix.Patches
 {
     internal static class SortGuard
     {
@@ -119,7 +119,7 @@ namespace SPT_sortfix.Patches
         [PatchPrefix]
         private static void Prefix()
         {
-            if (SPT_sortfix.Settings.Enabled.Value)
+            if (AutoSortFix.Settings.Enabled.Value)
             {
                 SortGuard.Suppressing = true;
                 SortGuard.LogSource?.LogInfo("SortFix: sort started, grid events suppressed.");
@@ -135,7 +135,7 @@ namespace SPT_sortfix.Patches
         [PatchPostfix]
         private static void Postfix(bool inProgress)
         {
-            if (!inProgress && SPT_sortfix.Settings.Enabled.Value)
+            if (!inProgress && AutoSortFix.Settings.Enabled.Value)
                 SortGuard.FinishSort();
         }
     }
@@ -149,7 +149,7 @@ namespace SPT_sortfix.Patches
         private static bool Prefix() => !ShouldSuppress();
 
         private static bool ShouldSuppress() =>
-            SPT_sortfix.Settings.Enabled.Value && SortGuard.Suppressing;
+            AutoSortFix.Settings.Enabled.Value && SortGuard.Suppressing;
     }
 
     internal sealed class SuppressRemovePatch : ModulePatch
@@ -161,7 +161,7 @@ namespace SPT_sortfix.Patches
         private static bool Prefix() => !ShouldSuppress();
 
         private static bool ShouldSuppress() =>
-            SPT_sortfix.Settings.Enabled.Value && SortGuard.Suppressing;
+            AutoSortFix.Settings.Enabled.Value && SortGuard.Suppressing;
     }
 
     internal static class PatchHelpers

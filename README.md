@@ -1,4 +1,4 @@
-# SPT_sortfix
+# AutoSortFix (0.1.0-alpha)
 
 Workaround for the vanilla stash auto-sort FPS bug: sorting fires a per-item
 `GridView` add/remove event burst that orphans ~40x live `GridItemView`s,
